@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'"
@@ -50,8 +51,27 @@
     ></div>
 
     <script>
+      // The fragment is never sent to the server or to the Turnstile iframe.
+      // A cross-origin iframe cannot read the top page's fragment.
+      const v2NonceMatch = /^#nonce=([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/i.exec(window.location.hash);
+
       function postToMovingSpot(type, token) {
         if (!window.ReactNativeWebView) return;
+
+        if (v2NonceMatch) {
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({
+              type: type,
+              nonce: v2NonceMatch[1],
+              token: token || null,
+            }),
+          );
+          return;
+        }
+
+        // No fragment is the original V1 protocol for already installed apps.
+        // An invalid/nonempty fragment cannot produce a usable bridge message.
+        if (window.location.hash !== '') return;
 
         window.ReactNativeWebView.postMessage(
           JSON.stringify({
