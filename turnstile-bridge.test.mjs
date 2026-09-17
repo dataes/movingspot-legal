@@ -33,6 +33,7 @@ test('existing public widget, compact dark UX, restrictive CSP and referrer poli
   assert.match(html, /https:\/\/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js/);
   assert.match(html, /data-theme="dark"/);
   assert.match(html, /data-size="flexible"/);
+  assert.match(html, /data-appearance="interaction-only"/);
   assert.match(html, /name="referrer" content="no-referrer"/);
   assert.match(html, /http-equiv="Content-Security-Policy"/);
   assert.match(html, /frame-src 'self' https:\/\/challenges\.cloudflare\.com/);
