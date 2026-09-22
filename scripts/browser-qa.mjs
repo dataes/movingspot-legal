@@ -38,17 +38,10 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
   assert.equal(await evaluate('[...document.images].every(i => i.complete && i.naturalWidth > 0)'), true, `${name}: image load`);
   await screenshot(name);
   if (name === 'desktop') {
+    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'), 'true');
     await evaluate('document.querySelector(".hero [data-download]").click()');
-    assert.equal(await evaluate('document.querySelector("dialog").open'),true);
-    assert.equal(await evaluate('document.querySelector("dialog").contains(document.activeElement)'),true);
-    // Native dialog focus trap remains inside after repeated keyboard traversal.
-    for (let i=0;i<5;i++) { await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9}); await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9}); }
-    assert.equal(await evaluate('document.querySelector("dialog").contains(document.activeElement)'),true);
-    await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
-    await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
-    await pause(80);
     assert.equal(await evaluate('document.querySelector("dialog").open'),false);
-    assert.equal(await evaluate('document.activeElement.matches(".hero [data-download]")'),true);
+    assert.equal(await evaluate('[...document.querySelectorAll("[data-store]")].every(link => link.getAttribute("aria-disabled") === "true")'),true);
     assert.equal(await evaluate('document.querySelector("[data-mode=out]").getAttribute("aria-pressed")'),'true');
     assert.equal(await evaluate('document.querySelectorAll(".floating-tag").length'),0);
     await evaluate('document.querySelector("[data-mode=on]").click()');
@@ -76,24 +69,22 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
     assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero-phone")).animationName'),'none');
     await send('Emulation.setEmulatedMedia',{features:[]});
   }
-  console.log(`PASS ${name}: layout, images${name==='desktop'?', store dialog, focus trap, Escape, focus restoration, discovery, vibes, reduced motion':''}`);
+    console.log(`PASS ${name}: layout, images${name==='desktop'?', disabled store CTAs, discovery, vibes, reduced motion':''}`);
 }
 for (const [name,ua,platform,touch,label,url] of [
- ['iphone','Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)','iPhone',5,'Download on the App Store','APPLE_STORE_URL'],
- ['ipad','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15)','MacIntel',5,'Download on the App Store','APPLE_STORE_URL'],
- ['android','Mozilla/5.0 (Linux; Android 15; Pixel 9)','Linux armv8l',5,'Get it on Google Play','https://play.google.com/store/apps/details?id=com.brusselfever.app'],
+ ['iphone','Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)','iPhone',5],
+ ['ipad','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15)','MacIntel',5],
+ ['android','Mozilla/5.0 (Linux; Android 15; Pixel 9)','Linux armv8l',5],
 ]) {
  await send('Emulation.setUserAgentOverride',{userAgent:ua,platform});
  await send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:touch});
  await navigate('http://127.0.0.1:4173/');
- assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),label);
+ assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
  assert.equal(await evaluate('document.querySelector(".hero [data-download]").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: CTA fits smallest screen`);
- assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith(url));
- await evaluate('document.querySelector("[data-store-picker]").click()');
- assert.equal(await evaluate('document.querySelector("dialog").open'),true);
- assert.equal(await evaluate('document.querySelectorAll("dialog [data-store]").length'),2);
- await evaluate('document.querySelector("dialog").close()');
- console.log(`PASS ${name}: platform label, correct store URL, both stores accessible`);
+ assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
+ await evaluate('document.querySelector(".hero [data-download]").click()');
+ assert.equal(await evaluate('document.querySelector("dialog").open'),false);
+ console.log(`PASS ${name}: coming-soon CTA remains disabled`);
 }
 await send('Emulation.setTouchEmulationEnabled',{enabled:false});
 await send('Emulation.setUserAgentOverride',{userAgent:'Mozilla/5.0 Chrome/140.0.0.0',platform:'Linux x86_64'});

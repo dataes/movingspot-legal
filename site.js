@@ -1,6 +1,7 @@
 /* Google Play is configured; replace the App Store placeholder when available. */
 const APPLE_STORE_URL = 'https://example.com/APPLE_STORE_URL';
 const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.brusselfever.app';
+const STORES_AVAILABLE = false;
 
 function detectPlatform(userAgent, platform, maxTouchPoints) {
   if (/iPad|iPhone|iPod/i.test(userAgent) || (platform === 'MacIntel' && maxTouchPoints > 1)) return 'apple';
@@ -21,24 +22,40 @@ function openStores(event) {
   document.documentElement.classList.add('dialog-open');
 }
 
-document.querySelectorAll('[data-store]').forEach(link => { link.href = storeUrls[link.dataset.store]; });
-document.querySelectorAll('[data-download]').forEach(link => {
-  if (platform === 'desktop') {
-    if (dialog && typeof dialog.showModal === 'function') {
-      link.setAttribute('aria-haspopup', 'dialog');
-      link.addEventListener('click', openStores);
-    }
-  } else {
-    link.href = storeUrls[platform];
+if (!STORES_AVAILABLE) {
+  document.querySelectorAll('[data-download], [data-store], [data-store-picker]').forEach(control => {
+    control.setAttribute('aria-disabled', 'true');
+    control.setAttribute('tabindex', '-1');
+    control.addEventListener('click', event => event.preventDefault());
+  });
+} else {
+  document.querySelectorAll('[data-store]').forEach(link => {
+    link.href = storeUrls[link.dataset.store];
+    link.removeAttribute('aria-disabled');
+    link.removeAttribute('tabindex');
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    const label = platform === 'apple' ? 'Download on the App Store' : 'Get it on Google Play';
-    const text = link.querySelector('[data-download-label]');
-    if (text) text.textContent = label;
-    link.setAttribute('aria-label', `${label} (opens in a new tab)`);
-  }
-});
-document.querySelectorAll('[data-store-picker]').forEach(link => link.addEventListener('click', openStores));
+  });
+  document.querySelectorAll('[data-download]').forEach(link => {
+    link.removeAttribute('aria-disabled');
+    link.removeAttribute('tabindex');
+    if (platform === 'desktop') {
+      if (dialog && typeof dialog.showModal === 'function') {
+        link.setAttribute('aria-haspopup', 'dialog');
+        link.addEventListener('click', openStores);
+      }
+    } else {
+      link.href = storeUrls[platform];
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      const label = platform === 'apple' ? 'Download on the App Store' : 'Get it on Google Play';
+      const text = link.querySelector('[data-download-label]');
+      if (text) text.textContent = label;
+      link.setAttribute('aria-label', `${label} (opens in a new tab)`);
+    }
+  });
+  document.querySelectorAll('[data-store-picker]').forEach(link => link.addEventListener('click', openStores));
+}
 if (dialog) {
   dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => {

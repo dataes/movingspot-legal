@@ -57,16 +57,19 @@ test('local asset and page links resolve; fragment targets exist', () => {
   }
 });
 
-test('direct store links open safely in a new tab', () => {
+test('store downloads remain disabled until the public launch', () => {
   const html = read('index.html');
   const links = [...html.matchAll(/<a[^>]*data-store="(?:apple|google)"[^>]*>/g)];
   assert.equal(links.length, 4);
   for (const [link] of links) {
-    assert.match(link, /target="_blank"/);
-    assert.match(link, /rel="noopener noreferrer"/);
+    assert.match(link, /href="#download"/);
+    assert.match(link, /aria-disabled="true"/);
+    assert.match(link, /tabindex="-1"/);
   }
 
   const script = read('site.js');
+  assert.match(script, /const STORES_AVAILABLE = false/);
+  assert.match(script, /event => event\.preventDefault\(\)/);
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
 });

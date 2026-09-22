@@ -12,6 +12,8 @@ Open http://127.0.0.1:4173.
 
 ## Store URLs
 
+Store downloads are temporarily disabled with `STORES_AVAILABLE = false` in `site.js`. The published page displays “Launching soon in Brussels · iOS & Android” and does not open either listing. Set this flag to `true` only once both public listings are ready, then restore the launch copy in `index.html`.
+
 Google Play is configured with `https://play.google.com/store/apps/details?id=com.brusselfever.app`.
 
 Replace `APPLE_STORE_URL` at the top of `site.js` when the iOS listing is available. Also update the Apple `data-store` links in `index.html` for the no-JavaScript fallback. Only the App Store URL remains an intentional placeholder.
