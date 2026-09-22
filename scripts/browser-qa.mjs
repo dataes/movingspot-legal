@@ -82,9 +82,10 @@ for (const [name,ua,platform,touch,label,url] of [
  assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
  assert.equal(await evaluate('document.querySelector(".hero [data-download]").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: CTA fits smallest screen`);
  assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
+ assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero-phone")).animationName'),'arrive');
  await evaluate('document.querySelector(".hero [data-download]").click()');
  assert.equal(await evaluate('document.querySelector("dialog").open'),false);
- console.log(`PASS ${name}: coming-soon CTA remains disabled`);
+ console.log(`PASS ${name}: entrance animation active and coming-soon CTA disabled`);
 }
 await send('Emulation.setTouchEmulationEnabled',{enabled:false});
 await send('Emulation.setUserAgentOverride',{userAgent:'Mozilla/5.0 Chrome/140.0.0.0',platform:'Linux x86_64'});

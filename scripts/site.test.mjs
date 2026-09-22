@@ -73,3 +73,10 @@ test('store downloads remain disabled until the public launch', () => {
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
 });
+
+test('hero entrance animation is enabled on touch devices unless reduced motion is requested', () => {
+  const styles = read('styles.css');
+  assert.match(styles, /@media\(prefers-reduced-motion:no-preference\)[\s\S]*?\.hero-phone\s*\{\s*animation:arrive/);
+  assert.doesNotMatch(styles, /@media\(hover:hover\)[^{]*\{[\s\S]*?animation:arrive/);
+  assert.match(styles, /@media\(prefers-reduced-motion:reduce\)[\s\S]*?animation:none!important/);
+});

@@ -1197,7 +1197,7 @@ dialog>p:not(.eyebrow) {
   border-top:1px solid var(--line);
 }
 
-@media(hover:hover) and (prefers-reduced-motion:no-preference) {
+@media(prefers-reduced-motion:no-preference) {
   .hero-phone {
     animation:arrive .8s ease-out both;
   }
