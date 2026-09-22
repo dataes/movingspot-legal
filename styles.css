@@ -262,7 +262,7 @@ em {
   right:-4%;
   bottom:-12px;
   height:5px;
-  background:linear-gradient(90deg,var(--pink),var(--orange));
+  background:linear-gradient(90deg,var(--cyan),var(--orange) 50%,var(--pink));
   transform:rotate(-5deg);
   border-radius:50%;
 }
