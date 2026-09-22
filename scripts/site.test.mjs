@@ -84,7 +84,7 @@ test('hero entrance animation is enabled on touch devices unless reduced motion 
 test('published child safety standards expose the Play listing name, CSAE prohibition, and contact', () => {
   const html = read('child-safety.html');
   assert.match(html, /MovingSpot: Brussels/);
-  assert.match(html, /dataes/);
+  assert.match(html, /These Child Safety Standards apply to MovingSpot: Brussels, published on Google Play by dataes\./);
   assert.match(html, /explicitly prohibits child sexual abuse and exploitation \(CSAE\)/);
   assert.match(html, /child sexual abuse material \(CSAM\)/);
   assert.match(html, /MovingSpot Child Safety Team/);
