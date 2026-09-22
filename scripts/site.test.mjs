@@ -8,7 +8,7 @@ const root = new URL('../', import.meta.url);
 const read = name => readFileSync(new URL(name, root), 'utf8');
 const fingerprints = JSON.parse(read('scripts/legal-content-sha256.json'));
 
-test('every original legal/support body is preserved byte-for-byte at its original route', () => {
+test('every approved legal/support body is preserved byte-for-byte at its original route', () => {
   for (const [name, expected] of Object.entries(fingerprints)) {
     const html = read(`${name}.html`);
     const body = html.match(/<main class="legal-content" id="main">([\s\S]*?)<\/main>/)?.[1];
@@ -79,4 +79,15 @@ test('hero entrance animation is enabled on touch devices unless reduced motion 
   assert.match(styles, /@media\(prefers-reduced-motion:no-preference\)[\s\S]*?\.hero-phone\s*\{\s*animation:arrive/);
   assert.doesNotMatch(styles, /@media\(hover:hover\)[^{]*\{[\s\S]*?animation:arrive/);
   assert.match(styles, /@media\(prefers-reduced-motion:reduce\)[\s\S]*?animation:none!important/);
+});
+
+test('published child safety standards expose the Play listing name, CSAE prohibition, and contact', () => {
+  const html = read('child-safety.html');
+  assert.match(html, /MovingSpot: Brussels/);
+  assert.match(html, /dataes/);
+  assert.match(html, /explicitly prohibits child sexual abuse and exploitation \(CSAE\)/);
+  assert.match(html, /child sexual abuse material \(CSAM\)/);
+  assert.match(html, /MovingSpot Child Safety Team/);
+  assert.match(html, /<!--email_off--><a href="mailto:support@movingspot\.app">support@movingspot\.app<\/a><!--\/email_off-->/);
+  assert.match(html, /reporting confirmed CSAM/);
 });
