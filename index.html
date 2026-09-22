@@ -21,13 +21,13 @@
   <link rel="apple-touch-icon" href="./assets/icon-180.png">
   <link rel="manifest" href="./site.webmanifest">
   <link rel="stylesheet" href="./styles.css?v=7395c53">
-  <script src="./site.js" defer></script>
+  <script src="./site.js?v=android-live-1" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header wrap">
     <a class="brand" href="./" aria-label="MovingSpot home"><img src="./assets/brand-mark.webp" alt="" width="44" height="44">MovingSpot<span class="brand-dot">.</span></a>
-    <nav aria-label="Main navigation"><a class="nav-discover" href="#discover">Discover the app</a><a class="button button-small" data-download href="#download" aria-disabled="true" tabindex="-1" aria-describedby="release-status">Coming soon</a></nav>
+    <nav aria-label="Main navigation"><a class="nav-discover" href="#discover">Discover the app</a><a class="button button-small" data-download href="#download"><span data-download-label>Get MovingSpot</span> <span aria-hidden="true">↗</span></a></nav>
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
@@ -35,7 +35,7 @@
         <p class="eyebrow"><span class="status-dot"></span> MovingSpot maps the vibe.</p>
         <h1 id="hero-title">Follow<br> the <em>vibe.</em></h1>
         <p class="hero-description">Your next great spot is closer than you think.<br>Discover what’s happening around you.<br>Feel the vibe before you go.</p>
-        <div class="hero-actions"><a class="button button-primary" data-download href="#download" aria-disabled="true" tabindex="-1" aria-describedby="release-status"><span data-download-label>Coming soon</span></a><span class="store-alternative" id="release-status">Launching soon in Brussels · iOS &amp; Android</span></div>
+        <div class="hero-actions"><a class="button button-primary" data-download href="#download" aria-describedby="release-status"><span data-download-label>Get MovingSpot</span><span aria-hidden="true">↗</span></a><span class="store-alternative" id="release-status">Now on Google Play · iOS coming soon</span></div>
       </div>
       <div class="hero-scene" aria-label="A preview of the MovingSpot app in Brussels">
         <div class="hero-map" aria-hidden="true"></div>
@@ -93,8 +93,8 @@
       </div>
     </section>
     <section class="download-section" id="download" aria-labelledby="download-title">
-      <div class="download-orbit" aria-hidden="true"></div><div class="wrap download-content"><img src="./assets/brand-mark.webp" width="88" height="88" alt="" loading="lazy"><p class="eyebrow">Good things happen out there.</p><h2 id="download-title">See you<br><em>at the spot.</em></h2><a class="button button-primary" data-download href="#download" aria-disabled="true" tabindex="-1" aria-describedby="download-release-status"><span data-download-label>Coming soon</span></a>
-        <div class="store-links" id="store-options"><a data-store="apple" href="#download" aria-disabled="true" tabindex="-1">App Store · Coming soon</a><span aria-hidden="true">/</span><a data-store="google" href="#download" aria-disabled="true" tabindex="-1">Google Play · Coming soon</a></div><p class="download-note" id="download-release-status">Launching soon in Brussels · iOS &amp; Android</p>
+      <div class="download-orbit" aria-hidden="true"></div><div class="wrap download-content"><img src="./assets/brand-mark.webp" width="88" height="88" alt="" loading="lazy"><p class="eyebrow">Good things happen out there.</p><h2 id="download-title">See you<br><em>at the spot.</em></h2><a class="button button-primary" data-download href="#store-options" aria-describedby="download-release-status"><span data-download-label>Get MovingSpot</span><span aria-hidden="true">↗</span></a>
+        <div class="store-links" id="store-options"><a data-store="apple" href="#download" aria-disabled="true" tabindex="-1">App Store · Coming soon</a><span aria-hidden="true">/</span><a data-store="google" href="https://play.google.com/store/apps/details?id=com.brusselfever.app" target="_blank" rel="noopener noreferrer" aria-label="Get MovingSpot on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a></div><p class="download-note" id="download-release-status">Now available on Google Play · iOS coming soon</p>
       </div>
     </section>
   </main>
@@ -102,6 +102,6 @@
     <div class="footer-top"><a class="brand" href="./"><img src="./assets/brand-mark.webp" alt="" width="36" height="36">MovingSpot<span class="brand-dot">.</span></a><p>Maps the vibe.</p><a href="mailto:support@movingspot.app" target="_blank" rel="noopener noreferrer" aria-label="Say hello (opens in a new tab)">Say hello <span aria-hidden="true">↗</span></a></div>
     <div class="footer-bottom"><p>© 2026 MovingSpot</p><nav aria-label="Legal and support"><a href="./privacy.html">Privacy Policy</a><a href="./terms.html">Terms of Use</a><a href="./community-guidelines.html">Community Guidelines</a><a href="./child-safety.html">Child Safety Standards</a><a href="./account-deletion.html">Account Deletion</a><a href="./support.html">Support</a><a href="./legal-notice.html">Legal Notice</a></nav></div>
   </footer>
-  <dialog id="store-dialog" aria-labelledby="store-title" aria-describedby="store-description"><button class="dialog-close" type="button" aria-label="Close store selection">×</button><img src="./assets/brand-mark.webp" width="72" height="72" alt=""><p class="eyebrow">Follow the vibe.</p><h2 id="store-title">Take the city<br>with you.</h2><p id="store-description">MovingSpot is launching soon in Brussels on iOS and Android.</p><div class="dialog-stores"><a class="button" data-store="apple" href="#download" aria-disabled="true" tabindex="-1">App Store · Coming soon</a><a class="button" data-store="google" href="#download" aria-disabled="true" tabindex="-1">Google Play · Coming soon</a></div></dialog>
+  <dialog id="store-dialog" aria-labelledby="store-title" aria-describedby="store-description"><button class="dialog-close" type="button" aria-label="Close store selection">×</button><img src="./assets/brand-mark.webp" width="72" height="72" alt=""><p class="eyebrow">Follow the vibe.</p><h2 id="store-title">Take the city<br>with you.</h2><p id="store-description">MovingSpot is now on Google Play. iOS is coming soon.</p><div class="dialog-stores"><a class="button" data-store="apple" href="#download" aria-disabled="true" tabindex="-1">App Store · Coming soon</a><a class="button" data-store="google" href="https://play.google.com/store/apps/details?id=com.brusselfever.app" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play (opens in a new tab)">Get it on Google Play <span aria-hidden="true">↗</span></a></div></dialog>
 </body>
 </html>

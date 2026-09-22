@@ -1,7 +1,7 @@
 /* Google Play is configured; replace the App Store placeholder when available. */
 const APPLE_STORE_URL = 'https://example.com/APPLE_STORE_URL';
 const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.brusselfever.app';
-const STORES_AVAILABLE = false;
+const storeAvailability = { apple: false, google: true };
 
 function detectPlatform(userAgent, platform, maxTouchPoints) {
   if (/iPad|iPhone|iPod/i.test(userAgent) || (platform === 'MacIntel' && maxTouchPoints > 1)) return 'apple';
@@ -22,40 +22,51 @@ function openStores(event) {
   document.documentElement.classList.add('dialog-open');
 }
 
-if (!STORES_AVAILABLE) {
-  document.querySelectorAll('[data-download], [data-store], [data-store-picker]').forEach(control => {
-    control.setAttribute('aria-disabled', 'true');
-    control.setAttribute('tabindex', '-1');
-    control.addEventListener('click', event => event.preventDefault());
-  });
-} else {
-  document.querySelectorAll('[data-store]').forEach(link => {
-    link.href = storeUrls[link.dataset.store];
-    link.removeAttribute('aria-disabled');
-    link.removeAttribute('tabindex');
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-  });
-  document.querySelectorAll('[data-download]').forEach(link => {
-    link.removeAttribute('aria-disabled');
-    link.removeAttribute('tabindex');
-    if (platform === 'desktop') {
-      if (dialog && typeof dialog.showModal === 'function') {
-        link.setAttribute('aria-haspopup', 'dialog');
-        link.addEventListener('click', openStores);
-      }
-    } else {
-      link.href = storeUrls[platform];
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      const label = platform === 'apple' ? 'Download on the App Store' : 'Get it on Google Play';
-      const text = link.querySelector('[data-download-label]');
-      if (text) text.textContent = label;
-      link.setAttribute('aria-label', `${label} (opens in a new tab)`);
-    }
-  });
-  document.querySelectorAll('[data-store-picker]').forEach(link => link.addEventListener('click', openStores));
+function disableControl(control) {
+  control.setAttribute('aria-disabled', 'true');
+  control.setAttribute('tabindex', '-1');
+  control.addEventListener('click', event => event.preventDefault());
 }
+
+document.querySelectorAll('[data-store]').forEach(link => {
+  const store = link.dataset.store;
+  if (!storeAvailability[store]) {
+    disableControl(link);
+    return;
+  }
+  link.href = storeUrls[store];
+  link.removeAttribute('aria-disabled');
+  link.removeAttribute('tabindex');
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+});
+
+document.querySelectorAll('[data-download]').forEach(link => {
+  if (platform === 'desktop') {
+    if (dialog && typeof dialog.showModal === 'function') {
+      link.setAttribute('aria-haspopup', 'dialog');
+      link.addEventListener('click', openStores);
+    }
+    return;
+  }
+
+  if (!storeAvailability[platform]) {
+    disableControl(link);
+    const text = link.querySelector('[data-download-label]');
+    if (text) text.textContent = 'Coming soon';
+    link.querySelector('[data-download-label] + [aria-hidden]')?.remove();
+    link.setAttribute('aria-label', 'MovingSpot is coming soon on iOS');
+    return;
+  }
+
+  link.href = storeUrls[platform];
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  const label = 'Get it on Google Play';
+  const text = link.querySelector('[data-download-label]');
+  if (text) text.textContent = label;
+  link.setAttribute('aria-label', `${label} (opens in a new tab)`);
+});
 if (dialog) {
   dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => {

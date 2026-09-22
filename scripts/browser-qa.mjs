@@ -38,10 +38,12 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
   assert.equal(await evaluate('[...document.images].every(i => i.complete && i.naturalWidth > 0)'), true, `${name}: image load`);
   await screenshot(name);
   if (name === 'desktop') {
-    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'), 'true');
+    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'), null);
     await evaluate('document.querySelector(".hero [data-download]").click()');
-    assert.equal(await evaluate('document.querySelector("dialog").open'),false);
-    assert.equal(await evaluate('[...document.querySelectorAll("[data-store]")].every(link => link.getAttribute("aria-disabled") === "true")'),true);
+    assert.equal(await evaluate('document.querySelector("dialog").open'),true);
+    assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getAttribute("aria-disabled")'), 'true');
+    assert.equal(await evaluate('document.querySelector("dialog [data-store=google]").getAttribute("aria-disabled")'), null);
+    await evaluate('document.querySelector("dialog").close()');
     assert.equal(await evaluate('document.querySelector("[data-mode=out]").getAttribute("aria-pressed")'),'true');
     assert.equal(await evaluate('document.querySelectorAll(".floating-tag").length'),0);
     await evaluate('document.querySelector("[data-mode=on]").click()');
@@ -69,7 +71,7 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
     assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero-phone")).animationName'),'none');
     await send('Emulation.setEmulatedMedia',{features:[]});
   }
-    console.log(`PASS ${name}: layout, images${name==='desktop'?', disabled store CTAs, discovery, vibes, reduced motion':''}`);
+    console.log(`PASS ${name}: layout, images${name==='desktop'?', Google Play choice, discovery, vibes, reduced motion':''}`);
 }
 for (const [name,ua,platform,touch,label,url] of [
  ['iphone','Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)','iPhone',5],
@@ -79,13 +81,20 @@ for (const [name,ua,platform,touch,label,url] of [
  await send('Emulation.setUserAgentOverride',{userAgent:ua,platform});
  await send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:touch});
  await navigate('http://127.0.0.1:4173/');
- assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
  assert.equal(await evaluate('document.querySelector(".hero [data-download]").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: CTA fits smallest screen`);
- assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
  assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero-phone")).animationName'),'arrive');
- await evaluate('document.querySelector(".hero [data-download]").click()');
- assert.equal(await evaluate('document.querySelector("dialog").open'),false);
- console.log(`PASS ${name}: entrance animation active and coming-soon CTA disabled`);
+ if (name === 'android') {
+   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Get it on Google Play');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
+   assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://play.google.com/store/apps/details?id=com.brusselfever.app'));
+   console.log(`PASS ${name}: entrance animation active and Google Play CTA enabled`);
+ } else {
+   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
+   await evaluate('document.querySelector(".hero [data-download]").click()');
+   assert.equal(await evaluate('document.querySelector("dialog").open'),false);
+   console.log(`PASS ${name}: entrance animation active and iOS CTA disabled`);
+ }
 }
 await send('Emulation.setTouchEmulationEnabled',{enabled:false});
 await send('Emulation.setUserAgentOverride',{userAgent:'Mozilla/5.0 Chrome/140.0.0.0',platform:'Linux x86_64'});
