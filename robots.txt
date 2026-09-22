@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /turnstile.html
+Sitemap: https://movingspot.app/sitemap.xml

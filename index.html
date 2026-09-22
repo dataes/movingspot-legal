@@ -1,24 +1,107 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>MovingSpot Legal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body style="font-family: Arial, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; line-height: 1.6;">
-    <h1>MovingSpot Legal</h1>
-    <p>Legal and support information for MovingSpot.</p>
-    <footer>
-      <ul>
-        <li><a href="./terms.html">Terms of Use</a></li>
-        <li><a href="./privacy.html">Privacy Policy</a></li>
-        <li><a href="./community-guidelines.html">Community Guidelines</a></li>
-        <li><a href="./child-safety.html">Child Safety Standards</a></li>
-        <li><a href="./account-deletion.html">Account Deletion</a></li>
-        <li><a href="./support.html">Support</a></li>
-        <li><a href="./legal-notice.html">Legal Notice</a></li>
-      </ul>
-      <p>&copy; 2026 MovingSpot</p>
-    </footer>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MovingSpot - Maps the vibe</title>
+  <meta name="description" content="Discover events, places and experiences around you. See where people are hanging out, feel the vibe before you go, and share your spot with MovingSpot.">
+  <meta name="theme-color" content="#080808">
+  <link rel="canonical" href="https://movingspot.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MovingSpot">
+  <meta property="og:title" content="MovingSpot maps the vibe.">
+  <meta property="og:description" content="What's On. Who's Out. Follow the vibe. Create your spot.">
+  <meta property="og:url" content="https://movingspot.app/">
+  <meta property="og:image" content="https://movingspot.app/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="MovingSpot maps the vibe — discover your city with the MovingSpot map.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="./assets/icon-32.png">
+  <link rel="apple-touch-icon" href="./assets/icon-180.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="brand" href="./" aria-label="MovingSpot home"><img src="./assets/brand-mark.webp" alt="" width="44" height="44">MovingSpot<span class="brand-dot">.</span></a>
+    <nav aria-label="Main navigation"><a class="nav-discover" href="#discover">Discover the app</a><a class="button button-small" data-download href="#download">Get MovingSpot <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> MovingSpot maps the vibe.</p>
+        <h1 id="hero-title">Follow<br> the <em>vibe.</em></h1>
+        <p class="hero-description">Your next great spot is closer than you think.<br>Discover what’s happening around you.<br>Feel the vibe before you go.</p>
+        <div class="hero-actions"><a class="button button-primary" data-download href="#download"><span data-download-label>Get MovingSpot</span><span aria-hidden="true">↗</span></a><a class="store-alternative" href="#download" data-store-picker>Now available in Brussels · iOS &amp; Android</a></div>
+      </div>
+      <div class="hero-scene" aria-label="A preview of the MovingSpot app in Brussels">
+        <div class="hero-map" aria-hidden="true"></div>
+        <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
+        <div class="phone hero-phone"><img src="./assets/map-on-780.webp" srcset="./assets/map-on-390.webp 390w, ./assets/map-on-780.webp 780w" sizes="(max-width: 600px) 250px, 290px" width="780" height="1688" fetchpriority="high" alt="MovingSpot What's On: map of Brussels with glowing event markers and Today's Events."></div>
+        <span class="scene-note">BRUSSELS, THROUGH MOVINGSPOT</span>
+      </div>
+      <a class="scroll-cue" href="#discover"><span aria-hidden="true">↓</span> A whole city to feel.</a>
+    </section>
+    <div class="vibe-strip">
+      <p class="strip-content"><span>Follow the vibe.</span> <span class="strip-accent">Create your spot.</span></p>
+    </div>
+    <section class="discover wrap section" id="discover" aria-labelledby="discover-title">
+      <div class="section-top"><p class="eyebrow"><span class="section-number">01 /</span> Find your kind of out</p><p class="small-note">Two ways in. One city around you.</p></div>
+      <div class="discovery-layout">
+        <div class="discovery-copy">
+          <h2 id="discover-title">Less searching.<br><span class="muted-heading">More going.</span></h2>
+          <div class="discovery-controls" role="group" aria-label="Explore the two map views">
+            <button class="discovery-choice" type="button" data-mode="on" aria-pressed="false" aria-controls="discovery-screen"><span class="choice-heading"><span>What’s On</span><span aria-hidden="true">↗</span></span><span class="choice-copy">Events, activities, places and experiences. From your usual favourites to your next hidden gem.</span></button>
+            <button class="discovery-choice is-active" type="button" data-mode="out" aria-pressed="true" aria-controls="discovery-screen"><span class="choice-heading"><span>Who’s Out</span><span aria-hidden="true">↗</span></span><span class="choice-copy">See where people are hanging out. Find the places that are coming to life, right now.</span></button>
+          </div>
+          <p class="interaction-hint"><span aria-hidden="true">↖</span> Switch between What’s On and Who’s Out.</p>
+        </div>
+        <figure class="discovery-stage">
+          <div class="stage-map" aria-hidden="true"></div><span class="stage-caption">YOUR CITY, A LITTLE CLOSER.</span>
+          <div class="phone discovery-phone" id="discovery-screen"><img id="discovery-image" src="./assets/map-out-780.webp" srcset="./assets/map-out-390.webp 390w, ./assets/map-out-780.webp 780w" sizes="(max-width: 600px) 240px, 280px" width="780" height="1688" loading="lazy" alt="Who's Out view with place markers and a Trending Now list of places where people are present."></div>
+          <figcaption id="discovery-caption" aria-live="polite">Who’s Out · Find where people are hanging out.</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="vibe-section section" id="vibe" aria-labelledby="vibe-title">
+      <div class="wrap">
+        <div class="section-top"><p class="eyebrow"><span class="section-number">02 /</span> Read the room. Before you arrive.</p><span class="small-note">Real places. Community-shared vibes.</span></div>
+        <div class="vibe-layout">
+          <div><h2 id="vibe-title">Every spot<br>has a <em>feeling.</em></h2><p class="section-description">A quiet catch-up or a packed dancefloor?<br>The community puts the feeling on the map.<br>You find the vibe that feels right.</p></div>
+          <div class="vibe-demo" data-vibe="lively">
+            <p class="eyebrow">What’s the vibe right now?</p>
+            <div class="vibe-symbol" aria-hidden="true"><svg viewBox="0 0 80 100"><path d="M44 2C56 25 35 26 49 44c6-5 9-14 7-22 25 26 25 47 13 64C53 108 16 100 9 77 1 52 23 40 24 22c14 9 8 23 15 29C45 36 29 26 44 2Z" fill="currentColor"/><path d="M41 49c8 17 22 24 13 38-9 13-27 8-29-4-3-14 12-18 16-34Z" fill="#fff" opacity=".8"/></svg></div>
+            <p class="vibe-state" id="vibe-state" aria-live="polite">Lively</p><div class="vibe-scale"><span aria-hidden="true"></span><input id="vibe-slider" type="range" min="0" max="2" step="1" value="1" aria-label="Select the vibe" aria-valuetext="Lively"></div>
+            <div class="vibe-options" role="group" aria-label="Preview a vibe"><button type="button" data-vibe-option="calm" aria-pressed="false">Calm</button><button type="button" data-vibe-option="lively" aria-pressed="true">Lively</button><button type="button" data-vibe-option="fevering" aria-pressed="false">Fevering</button></div>
+            <p class="vibe-description" id="vibe-description">People around. Something in the air.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="community wrap section" aria-labelledby="community-title">
+      <div class="section-top"><p class="eyebrow"><span class="section-number">03 /</span> Be part of the picture</p></div>
+      <div class="community-layout">
+        <div class="community-visual"><div class="community-halo" aria-hidden="true"></div><div class="phone activity-phone"><img src="./assets/activity-780.webp" srcset="./assets/activity-390.webp 390w, ./assets/activity-780.webp 780w" sizes="(max-width: 600px) 220px, 265px" width="780" height="1688" loading="lazy" alt="Place activity screen showing the current vibe, people present and place-based messages."></div><div class="checkin-note"><img src="./assets/brand-mark.webp" width="46" height="46" alt=""><span>Not just a pin.<br><strong>You’re part of the vibe.</strong></span></div></div>
+        <div class="community-copy"><h2 id="community-title">Follow the vibe.<br><em>Create your spot.</em></h2><p class="section-description">Found a good place? Let it be found.<br>Share an event, show you’re here, and keep<br class="desktop-break"> the conversation going around a spot.</p>
+          <div class="story-line"><span aria-hidden="true">01</span><div><h3>Show up. Check in.</h3><p>Choose your place, set your presence duration and share the current vibe.</p></div></div>
+          <div class="story-line"><span aria-hidden="true">02</span><div><h3>A place to connect.</h3><p>Join the conversation around a place while people are there.</p></div></div>
+          <div class="privacy-note"><span aria-hidden="true">◎</span><div><h3>Your presence. Your choice.</h3><p>No continuous background location tracking. Choose who gets notified and manage your presence in the app.</p></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="download-section" id="download" aria-labelledby="download-title">
+      <div class="download-orbit" aria-hidden="true"></div><div class="wrap download-content"><img src="./assets/brand-mark.webp" width="88" height="88" alt="" loading="lazy"><p class="eyebrow">Good things happen out there.</p><h2 id="download-title">See you<br><em>at the spot.</em></h2><a class="button button-primary" data-download href="#store-options"><span data-download-label>Get MovingSpot</span><span aria-hidden="true">↗</span></a>
+        <div class="store-links" id="store-options"><a data-store="apple" href="https://example.com/APPLE_STORE_URL" target="_blank" rel="noopener noreferrer" aria-label="Download MovingSpot on the App Store (opens in a new tab)">App Store <span aria-hidden="true">↗</span></a><span aria-hidden="true">/</span><a data-store="google" href="https://play.google.com/store/apps/details?id=com.brusselfever.app" target="_blank" rel="noopener noreferrer" aria-label="Get MovingSpot on Google Play (opens in a new tab)">Google Play <span aria-hidden="true">↗</span></a></div><p class="download-note">Now available in Brussels · iOS &amp; Android</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer wrap">
+    <div class="footer-top"><a class="brand" href="./"><img src="./assets/brand-mark.webp" alt="" width="36" height="36">MovingSpot<span class="brand-dot">.</span></a><p>Maps the vibe.</p><a href="mailto:support@movingspot.app" target="_blank" rel="noopener noreferrer" aria-label="Say hello (opens in a new tab)">Say hello <span aria-hidden="true">↗</span></a></div>
+    <div class="footer-bottom"><p>© 2026 MovingSpot</p><nav aria-label="Legal and support"><a href="./privacy.html">Privacy Policy</a><a href="./terms.html">Terms of Use</a><a href="./community-guidelines.html">Community Guidelines</a><a href="./child-safety.html">Child Safety Standards</a><a href="./account-deletion.html">Account Deletion</a><a href="./support.html">Support</a><a href="./legal-notice.html">Legal Notice</a></nav></div>
+  </footer>
+  <dialog id="store-dialog" aria-labelledby="store-title" aria-describedby="store-description"><button class="dialog-close" type="button" aria-label="Close store selection">×</button><img src="./assets/brand-mark.webp" width="72" height="72" alt=""><p class="eyebrow">Follow the vibe.</p><h2 id="store-title">Take the city<br>with you.</h2><p id="store-description">MovingSpot is currently available in Brussels. Choose your store to get the app.</p><div class="dialog-stores"><a class="button" data-store="apple" href="https://example.com/APPLE_STORE_URL" target="_blank" rel="noopener noreferrer" aria-label="Download on the App Store (opens in a new tab)">Download on the App Store <span aria-hidden="true">↗</span></a><a class="button" data-store="google" href="https://play.google.com/store/apps/details?id=com.brusselfever.app" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play (opens in a new tab)">Get it on Google Play <span aria-hidden="true">↗</span></a></div></dialog>
+</body>
 </html>
