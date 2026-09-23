@@ -84,10 +84,12 @@ for (const [name,ua,platform,touch,label,url] of [
  assert.equal(await evaluate('document.querySelector(".hero [data-download]").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: CTA fits smallest screen`);
  assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero-phone")).animationName'),'arrive');
  if (name === 'android') {
-   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Get it on Google Play');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("store-badge")'),true);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("button")'),false);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download] img").getAttribute("src")'),'./assets/google-play.png');
    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
    assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://play.google.com/store/apps/details?id=com.brusselfever.app'));
-   console.log(`PASS ${name}: entrance animation active and Google Play CTA enabled`);
+   console.log(`PASS ${name}: entrance animation active and official Google Play badge shown`);
  } else {
    assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');

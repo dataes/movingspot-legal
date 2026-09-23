@@ -28,6 +28,19 @@ function disableControl(control) {
   control.addEventListener('click', event => event.preventDefault());
 }
 
+function useGooglePlayBadge(link) {
+  const image = document.createElement('img');
+  image.className = 'store-badge-image';
+  image.src = './assets/google-play.png';
+  image.width = 1500;
+  image.height = 1500;
+  image.alt = 'Get it on Google Play';
+  link.classList.remove('button', 'button-primary');
+  link.classList.add('store-badge');
+  link.dataset.store = 'google';
+  link.replaceChildren(image);
+}
+
 document.querySelectorAll('[data-store]').forEach(link => {
   const store = link.dataset.store;
   if (!storeAvailability[store]) {
@@ -63,6 +76,7 @@ document.querySelectorAll('[data-download]').forEach(link => {
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
   const label = 'Get it on Google Play';
+  if (link.hasAttribute('data-download-hero')) useGooglePlayBadge(link);
   const text = link.querySelector('[data-download-label]');
   if (text) text.textContent = label;
   link.setAttribute('aria-label', `${label} (opens in a new tab)`);

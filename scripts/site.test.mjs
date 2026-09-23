@@ -96,6 +96,8 @@ test('Google Play is available while the App Store remains marked as coming soon
   assert.match(script, /const storeAvailability = \{ apple: false, google: true \}/);
   assert.match(script, /text\.textContent = 'Coming soon'/);
   assert.match(script, /const label = 'Get it on Google Play'/);
+  assert.match(script, /link\.hasAttribute\('data-download-hero'\)\) useGooglePlayBadge\(link\)/);
+  assert.match(script, /image\.src = '\.\/assets\/google-play\.png'/);
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
 });
