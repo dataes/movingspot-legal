@@ -280,6 +280,20 @@ em {
   gap:20px;
 }
 
+.android-play-cta {
+  display:none;
+}
+
+html.is-android [data-download-nav],
+html.is-android [data-download-bottom],
+html.is-android [data-download-hero] {
+  display:none;
+}
+
+html.is-android .hero-actions .android-play-cta {
+  display:block;
+}
+
 .store-alternative {
   font-size:12px;
   color:#b7b7be;

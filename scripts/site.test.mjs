@@ -85,7 +85,7 @@ test('Google Play is available while the App Store remains marked as coming soon
     assert.match(link, /tabindex="-1"/);
   }
   const googleLinks = [...html.matchAll(/<a[^>]*data-store="google"[^>]*>/g)];
-  assert.equal(googleLinks.length, 2);
+  assert.equal(googleLinks.length, 3);
   for (const [link] of googleLinks) {
     assert.match(link, /href="https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.brusselfever\.app"/);
     assert.match(link, /target="_blank"/);
@@ -98,6 +98,12 @@ test('Google Play is available while the App Store remains marked as coming soon
   assert.match(script, /const label = 'Get it on Google Play'/);
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
+  assert.match(script, /platform === 'google'\) document\.documentElement\?\.classList\.add\('is-android'\)/);
+
+  const styles = read('styles.css');
+  assert.match(html, /class="store-badge android-play-cta"/);
+  assert.match(styles, /html\.is-android \[data-download-nav\],[\s\S]*?html\.is-android \[data-download-hero\]/);
+  assert.match(styles, /html\.is-android \.hero-actions \.android-play-cta \{\s*display:block;/);
 });
 
 test('hero entrance animation is enabled on touch devices unless reduced motion is requested', () => {

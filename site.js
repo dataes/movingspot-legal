@@ -11,6 +11,7 @@ function detectPlatform(userAgent, platform, maxTouchPoints) {
 
 const storeUrls = { apple: APPLE_STORE_URL, google: GOOGLE_PLAY_URL };
 const platform = detectPlatform(navigator.userAgent, navigator.platform, navigator.maxTouchPoints);
+if (platform === 'google') document.documentElement?.classList.add('is-android');
 const dialog = document.querySelector('#store-dialog');
 let dialogTrigger;
 
