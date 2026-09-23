@@ -41,6 +41,19 @@ function useGooglePlayBadge(link) {
   link.replaceChildren(image);
 }
 
+function useAppStoreBadge(link) {
+  const image = document.createElement('img');
+  image.className = 'store-badge-image';
+  image.src = './assets/app-store.png';
+  image.width = 775;
+  image.height = 300;
+  image.alt = 'Download on the App Store';
+  link.classList.remove('button', 'button-primary');
+  link.classList.add('store-badge');
+  link.dataset.store = 'apple';
+  link.replaceChildren(image);
+}
+
 function simplifyAndroidDownloads() {
   document.querySelector('[data-download-nav]')?.remove();
   document.querySelector('[data-download-bottom]')?.remove();
@@ -48,6 +61,7 @@ function simplifyAndroidDownloads() {
 }
 
 if (platform === 'google') simplifyAndroidDownloads();
+if (platform === 'apple') document.querySelector('[data-download-nav]')?.remove();
 
 document.querySelectorAll('[data-store]').forEach(link => {
   const store = link.dataset.store;
@@ -84,7 +98,10 @@ document.querySelectorAll('[data-download]').forEach(link => {
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
   const label = storeLabels[platform];
-  if (link.hasAttribute('data-download-hero')) useGooglePlayBadge(link);
+  if (link.hasAttribute('data-download-hero')) {
+    if (platform === 'google') useGooglePlayBadge(link);
+    if (platform === 'apple') useAppStoreBadge(link);
+  }
   const text = link.querySelector('[data-download-label]');
   if (text) text.textContent = label;
   link.setAttribute('aria-label', `${label} (opens in a new tab)`);

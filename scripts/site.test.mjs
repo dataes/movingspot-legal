@@ -102,12 +102,15 @@ test('Google Play and the App Store are available', () => {
   const script = read('site.js');
   assert.match(script, /const storeAvailability = \{ apple: true, google: true \}/);
   assert.match(script, /apple: 'Download on the App Store'/);
-  assert.match(script, /link\.hasAttribute\('data-download-hero'\)\) useGooglePlayBadge\(link\)/);
+  assert.match(script, /if \(platform === 'google'\) useGooglePlayBadge\(link\)/);
   assert.match(script, /image\.src = '\.\/assets\/google-play\.png'/);
+  assert.match(script, /if \(platform === 'apple'\) useAppStoreBadge\(link\)/);
+  assert.match(script, /image\.src = '\.\/assets\/app-store\.png'/);
   assert.match(script, /document\.querySelector\('\[data-download-nav\]'\)\?\.remove\(\)/);
   assert.match(script, /document\.querySelector\('\[data-download-bottom\]'\)\?\.remove\(\)/);
   assert.match(script, /document\.querySelector\('#store-options \[data-store="apple"\]'\)\?\.remove\(\)/);
   assert.match(script, /platform === 'google'\) simplifyAndroidDownloads\(\)/);
+  assert.match(script, /platform === 'apple'\) document\.querySelector\('\[data-download-nav\]'\)\?\.remove\(\)/);
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
 });

@@ -97,7 +97,10 @@ for (const [name,ua,platform,touch,label,url] of [
    assert.equal(await evaluate('[...document.querySelectorAll("[data-store=google]")].filter(link => link.offsetParent !== null).length'),2);
    console.log(`PASS ${name}: entrance animation active and exactly two official Google Play badges shown`);
  } else {
-   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Download on the App Store');
+   assert.equal(await evaluate('document.querySelector("[data-download-nav]")'),null);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("store-badge")'),true);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("button")'),false);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download] img").getAttribute("src")'),'./assets/app-store.png');
    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
    assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://apps.apple.com/us/app/movingspot-brussels/id6769430023'));
    console.log(`PASS ${name}: entrance animation active and App Store CTA enabled`);
