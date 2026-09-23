@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MovingSpot - Maps the vibe</title>
-  <meta name="description" content="Discover events, places and experiences around you. See where people are hanging out, feel the vibe before you go, and share your spot with MovingSpot.">
+  <title>MovingSpot | Follow the vibe</title>
+  <meta name="description" content="MovingSpot is the Brussels app to discover events, places and experiences. See where people are hanging out, feel the vibe before you go, and share your spot.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="application-name" content="MovingSpot">
   <meta name="theme-color" content="#080808">
   <link rel="canonical" href="https://movingspot.app/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="MovingSpot">
-  <meta property="og:title" content="MovingSpot - Maps the vibe">
+  <meta property="og:title" content="MovingSpot | Follow the vibe">
   <meta property="og:description" content="Discover what's happening around you. What's On. Who's Out. Follow the vibe, not the crowd.">
   <meta property="og:url" content="https://movingspot.app/">
   <meta property="og:image" content="https://movingspot.app/assets/social-preview.png">
@@ -17,6 +19,56 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="MovingSpot - discover events, places and the vibe around you.">
   <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://movingspot.app/#website",
+          "url": "https://movingspot.app/",
+          "name": "MovingSpot",
+          "alternateName": "MovingSpot Brussels",
+          "inLanguage": "en-BE",
+          "publisher": { "@id": "https://movingspot.app/#organization" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://movingspot.app/#organization",
+          "name": "MovingSpot",
+          "legalName": "IRD (Inoca Research And Development)",
+          "url": "https://movingspot.app/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://movingspot.app/assets/icon-512.png",
+            "contentUrl": "https://movingspot.app/assets/icon-512.png"
+          },
+          "email": "support@movingspot.app",
+          "vatID": "BE0658904172",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "54 quai des Charbonnages",
+            "postalCode": "1080",
+            "addressLocality": "Brussels",
+            "addressCountry": "BE"
+          },
+          "sameAs": ["https://play.google.com/store/apps/details?id=com.brusselfever.app"]
+        },
+        {
+          "@type": "MobileApplication",
+          "@id": "https://movingspot.app/#app",
+          "name": "MovingSpot: Brussels",
+          "alternateName": "MovingSpot",
+          "applicationCategory": "LifestyleApplication",
+          "operatingSystem": "Android",
+          "url": "https://movingspot.app/",
+          "downloadUrl": "https://play.google.com/store/apps/details?id=com.brusselfever.app",
+          "image": "https://movingspot.app/assets/icon-512.png",
+          "publisher": { "@id": "https://movingspot.app/#organization" }
+        }
+      ]
+    }
+  </script>
   <link rel="icon" type="image/png" href="./assets/icon-32.png">
   <link rel="apple-touch-icon" href="./assets/icon-180.png">
   <link rel="manifest" href="./site.webmanifest">

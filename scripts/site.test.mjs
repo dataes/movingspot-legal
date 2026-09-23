@@ -57,6 +57,24 @@ test('local asset and page links resolve; fragment targets exist', () => {
   }
 });
 
+test('homepage declares MovingSpot as the Brussels application and its official publisher', () => {
+  const html = read('index.html');
+  assert.match(html, /<title>MovingSpot \| Follow the vibe<\/title>/);
+  assert.match(html, /<meta name="robots" content="index,follow,max-image-preview:large">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/movingspot\.app\/">/);
+
+  const schema = JSON.parse(html.match(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/)?.[1] ?? '');
+  const website = schema['@graph'].find(item => item['@type'] === 'WebSite');
+  const organization = schema['@graph'].find(item => item['@type'] === 'Organization');
+  const app = schema['@graph'].find(item => item['@type'] === 'MobileApplication');
+  assert.equal(website.name, 'MovingSpot');
+  assert.equal(website.alternateName, 'MovingSpot Brussels');
+  assert.equal(organization.legalName, 'IRD (Inoca Research And Development)');
+  assert.equal(organization.vatID, 'BE0658904172');
+  assert.equal(app.name, 'MovingSpot: Brussels');
+  assert.equal(app.downloadUrl, 'https://play.google.com/store/apps/details?id=com.brusselfever.app');
+});
+
 test('Google Play is available while the App Store remains marked as coming soon', () => {
   const html = read('index.html');
   const appleLinks = [...html.matchAll(/<a[^>]*data-store="apple"[^>]*>/g)];
