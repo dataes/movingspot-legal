@@ -89,7 +89,11 @@ for (const [name,ua,platform,touch,label,url] of [
    assert.equal(await evaluate('document.querySelector(".hero [data-download] img").getAttribute("src")'),'./assets/google-play.png');
    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
    assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://play.google.com/store/apps/details?id=com.brusselfever.app'));
-   console.log(`PASS ${name}: entrance animation active and official Google Play badge shown`);
+   assert.equal(await evaluate('document.querySelector("[data-download-nav]")'),null);
+   assert.equal(await evaluate('document.querySelector("[data-download-bottom]")'),null);
+   assert.equal(await evaluate('document.querySelector("#store-options [data-store=apple]")'),null);
+   assert.equal(await evaluate('[...document.querySelectorAll("[data-store=google]")].filter(link => link.offsetParent !== null).length'),2);
+   console.log(`PASS ${name}: entrance animation active and exactly two official Google Play badges shown`);
  } else {
    assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');

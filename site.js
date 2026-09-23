@@ -41,6 +41,14 @@ function useGooglePlayBadge(link) {
   link.replaceChildren(image);
 }
 
+function simplifyAndroidDownloads() {
+  document.querySelector('[data-download-nav]')?.remove();
+  document.querySelector('[data-download-bottom]')?.remove();
+  document.querySelector('#store-options [data-store="apple"]')?.remove();
+}
+
+if (platform === 'google') simplifyAndroidDownloads();
+
 document.querySelectorAll('[data-store]').forEach(link => {
   const store = link.dataset.store;
   if (!storeAvailability[store]) {

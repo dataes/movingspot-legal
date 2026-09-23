@@ -98,6 +98,10 @@ test('Google Play is available while the App Store remains marked as coming soon
   assert.match(script, /const label = 'Get it on Google Play'/);
   assert.match(script, /link\.hasAttribute\('data-download-hero'\)\) useGooglePlayBadge\(link\)/);
   assert.match(script, /image\.src = '\.\/assets\/google-play\.png'/);
+  assert.match(script, /document\.querySelector\('\[data-download-nav\]'\)\?\.remove\(\)/);
+  assert.match(script, /document\.querySelector\('\[data-download-bottom\]'\)\?\.remove\(\)/);
+  assert.match(script, /document\.querySelector\('#store-options \[data-store="apple"\]'\)\?\.remove\(\)/);
+  assert.match(script, /platform === 'google'\) simplifyAndroidDownloads\(\)/);
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
 });
