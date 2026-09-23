@@ -81,22 +81,19 @@ for (const [name,ua,platform,touch,label,url] of [
  await send('Emulation.setUserAgentOverride',{userAgent:ua,platform});
  await send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:touch});
  await navigate('http://127.0.0.1:4173/');
+ assert.equal(await evaluate('document.querySelector(".hero [data-download]").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: CTA fits smallest screen`);
  assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero-phone")).animationName'),'arrive');
  if (name === 'android') {
-   assert.equal(await evaluate('document.documentElement.classList.contains("is-android")'),true);
-   assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero [data-download-hero]")).display'),'none');
-   assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero .android-play-cta")).display'),'block');
-   assert.equal(await evaluate('document.querySelector(".hero .android-play-cta").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: Google Play badge fits smallest screen`);
-   assert.ok((await evaluate('document.querySelector(".hero .android-play-cta").href')).endsWith('https://play.google.com/store/apps/details?id=com.brusselfever.app'));
-   console.log(`PASS ${name}: entrance animation active and official Google Play badge shown`);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Get it on Google Play');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
+   assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://play.google.com/store/apps/details?id=com.brusselfever.app'));
+   console.log(`PASS ${name}: entrance animation active and Google Play CTA enabled`);
  } else {
-   assert.equal(await evaluate('document.documentElement.classList.contains("is-ios")'),true);
-   assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero [data-download-hero]")).display'),'none');
-   assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero .ios-store-cta")).display'),'block');
-   assert.equal(await evaluate('document.querySelector(".hero .ios-store-cta").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: App Store badge fits smallest screen`);
-   assert.equal(await evaluate('document.querySelector(".hero .ios-store-cta").getAttribute("aria-disabled")'),'true');
-   assert.equal(await evaluate('document.querySelector(".hero .ios-store-cta .store-badge-status").textContent'),'Coming soon');
-   console.log(`PASS ${name}: entrance animation active and App Store badge marked coming soon`);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
+   await evaluate('document.querySelector(".hero [data-download]").click()');
+   assert.equal(await evaluate('document.querySelector("dialog").open'),false);
+   console.log(`PASS ${name}: entrance animation active and iOS CTA disabled`);
  }
 }
 await send('Emulation.setTouchEmulationEnabled',{enabled:false});
