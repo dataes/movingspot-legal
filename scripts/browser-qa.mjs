@@ -41,7 +41,7 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
     assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'), null);
     await evaluate('document.querySelector(".hero [data-download]").click()');
     assert.equal(await evaluate('document.querySelector("dialog").open'),true);
-    assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getAttribute("aria-disabled")'), 'true');
+    assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getAttribute("aria-disabled")'), null);
     assert.equal(await evaluate('document.querySelector("dialog [data-store=google]").getAttribute("aria-disabled")'), null);
     await evaluate('document.querySelector("dialog").close()');
     assert.equal(await evaluate('document.querySelector("[data-mode=out]").getAttribute("aria-pressed")'),'true');
@@ -95,11 +95,10 @@ for (const [name,ua,platform,touch,label,url] of [
    assert.equal(await evaluate('[...document.querySelectorAll("[data-store=google]")].filter(link => link.offsetParent !== null).length'),2);
    console.log(`PASS ${name}: entrance animation active and exactly two official Google Play badges shown`);
  } else {
-   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
-   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
-   await evaluate('document.querySelector(".hero [data-download]").click()');
-   assert.equal(await evaluate('document.querySelector("dialog").open'),false);
-   console.log(`PASS ${name}: entrance animation active and iOS CTA disabled`);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Download on the App Store');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
+   assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://apps.apple.com/us/app/movingspot-brussels/id6769430023'));
+   console.log(`PASS ${name}: entrance animation active and App Store CTA enabled`);
  }
 }
 await send('Emulation.setTouchEmulationEnabled',{enabled:false});

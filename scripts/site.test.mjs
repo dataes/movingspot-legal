@@ -72,19 +72,24 @@ test('homepage declares MovingSpot as the Brussels application and its official 
   assert.equal(organization.legalName, 'IRD (Inoca Research And Development)');
   assert.equal(organization.vatID, 'BE0658904172');
   assert.equal(app.name, 'MovingSpot: Brussels');
-  assert.equal(app.downloadUrl, 'https://play.google.com/store/apps/details?id=com.brusselfever.app');
+  assert.deepEqual(app.operatingSystem, ['Android', 'iOS']);
+  assert.deepEqual(app.downloadUrl, [
+    'https://play.google.com/store/apps/details?id=com.brusselfever.app',
+    'https://apps.apple.com/us/app/movingspot-brussels/id6769430023',
+  ]);
 });
 
-test('Google Play is available while the App Store remains marked as coming soon', () => {
+test('Google Play and the App Store are available', () => {
   const html = read('index.html');
   assert.doesNotMatch(html, /Now (?:on|available on) Google Play/);
   assert.doesNotMatch(html, /MovingSpot is now on Google Play/);
   const appleLinks = [...html.matchAll(/<a[^>]*data-store="apple"[^>]*>/g)];
   assert.equal(appleLinks.length, 2);
   for (const [link] of appleLinks) {
-    assert.match(link, /href="#download"/);
-    assert.match(link, /aria-disabled="true"/);
-    assert.match(link, /tabindex="-1"/);
+    assert.match(link, /href="https:\/\/apps\.apple\.com\/us\/app\/movingspot-brussels\/id6769430023"/);
+    assert.match(link, /target="_blank"/);
+    assert.match(link, /rel="noopener noreferrer"/);
+    assert.doesNotMatch(link, /aria-disabled|tabindex/);
   }
   const googleLinks = [...html.matchAll(/<a[^>]*data-store="google"[^>]*>/g)];
   assert.equal(googleLinks.length, 2);
@@ -95,9 +100,8 @@ test('Google Play is available while the App Store remains marked as coming soon
   }
 
   const script = read('site.js');
-  assert.match(script, /const storeAvailability = \{ apple: false, google: true \}/);
-  assert.match(script, /text\.textContent = 'Coming soon'/);
-  assert.match(script, /const label = 'Get it on Google Play'/);
+  assert.match(script, /const storeAvailability = \{ apple: true, google: true \}/);
+  assert.match(script, /apple: 'Download on the App Store'/);
   assert.match(script, /link\.hasAttribute\('data-download-hero'\)\) useGooglePlayBadge\(link\)/);
   assert.match(script, /image\.src = '\.\/assets\/google-play\.png'/);
   assert.match(script, /document\.querySelector\('\[data-download-nav\]'\)\?\.remove\(\)/);

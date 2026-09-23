@@ -12,16 +12,15 @@ Open http://127.0.0.1:4173.
 
 ## Store URLs
 
-Store downloads are temporarily disabled with `STORES_AVAILABLE = false` in `site.js`. The published page displays “Launching soon in Brussels · iOS & Android” and does not open either listing. Set this flag to `true` only once both public listings are ready, then restore the launch copy in `index.html`.
+Both public store listings are configured:
 
-Google Play is configured with `https://play.google.com/store/apps/details?id=com.brusselfever.app`.
-
-Replace `APPLE_STORE_URL` at the top of `site.js` when the iOS listing is available. Also update the Apple `data-store` links in `index.html` for the no-JavaScript fallback. Only the App Store URL remains an intentional placeholder.
+- Google Play: `https://play.google.com/store/apps/details?id=com.brusselfever.app`
+- App Store: `https://apps.apple.com/us/app/movingspot-brussels/id6769430023`
 
 - iPhone/iPad (including desktop-mode iPadOS): App Store CTA.
 - Android: Google Play CTA.
 - Desktop/unknown platform: accessible choice dialog, without assuming a store.
-- Both stores remain available in the download section and manual picker.
+- Both stores are available in the download section and manual picker.
 - Without JavaScript: CTAs lead to the download section with both store links.
 
 ## Files

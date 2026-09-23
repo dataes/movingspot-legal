@@ -1,7 +1,6 @@
-/* Google Play is configured; replace the App Store placeholder when available. */
-const APPLE_STORE_URL = 'https://example.com/APPLE_STORE_URL';
+const APPLE_STORE_URL = 'https://apps.apple.com/us/app/movingspot-brussels/id6769430023';
 const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.brusselfever.app';
-const storeAvailability = { apple: false, google: true };
+const storeAvailability = { apple: true, google: true };
 
 function detectPlatform(userAgent, platform, maxTouchPoints) {
   if (/iPad|iPhone|iPod/i.test(userAgent) || (platform === 'MacIntel' && maxTouchPoints > 1)) return 'apple';
@@ -10,6 +9,7 @@ function detectPlatform(userAgent, platform, maxTouchPoints) {
 }
 
 const storeUrls = { apple: APPLE_STORE_URL, google: GOOGLE_PLAY_URL };
+const storeLabels = { apple: 'Download on the App Store', google: 'Get it on Google Play' };
 const platform = detectPlatform(navigator.userAgent, navigator.platform, navigator.maxTouchPoints);
 const dialog = document.querySelector('#store-dialog');
 let dialogTrigger;
@@ -83,7 +83,7 @@ document.querySelectorAll('[data-download]').forEach(link => {
   link.href = storeUrls[platform];
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
-  const label = 'Get it on Google Play';
+  const label = storeLabels[platform];
   if (link.hasAttribute('data-download-hero')) useGooglePlayBadge(link);
   const text = link.querySelector('[data-download-label]');
   if (text) text.textContent = label;
