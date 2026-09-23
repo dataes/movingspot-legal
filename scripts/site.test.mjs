@@ -78,7 +78,7 @@ test('homepage declares MovingSpot as the Brussels application and its official 
 test('Google Play is available while the App Store remains marked as coming soon', () => {
   const html = read('index.html');
   const appleLinks = [...html.matchAll(/<a[^>]*data-store="apple"[^>]*>/g)];
-  assert.equal(appleLinks.length, 2);
+  assert.equal(appleLinks.length, 3);
   for (const [link] of appleLinks) {
     assert.match(link, /href="#download"/);
     assert.match(link, /aria-disabled="true"/);
@@ -99,11 +99,14 @@ test('Google Play is available while the App Store remains marked as coming soon
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
   assert.match(script, /platform === 'google'\) document\.documentElement\?\.classList\.add\('is-android'\)/);
+  assert.match(script, /platform === 'apple'\) document\.documentElement\?\.classList\.add\('is-ios'\)/);
 
   const styles = read('styles.css');
   assert.match(html, /class="store-badge android-play-cta"/);
-  assert.match(styles, /html\.is-android \[data-download-hero\] \{\s*display:none;/);
+  assert.match(html, /class="store-badge ios-store-cta"/);
+  assert.match(styles, /html\.is-android \[data-download-hero\],[\s\S]*?display:none;/);
   assert.match(styles, /html\.is-android \.hero-actions \.android-play-cta \{\s*display:block;/);
+  assert.match(styles, /html\.is-ios \.hero-actions \.ios-store-cta \{\s*display:block;/);
 });
 
 test('hero entrance animation is enabled on touch devices unless reduced motion is requested', () => {

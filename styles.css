@@ -280,15 +280,21 @@ em {
   gap:20px;
 }
 
-.android-play-cta {
+.android-play-cta,
+.ios-store-cta {
   display:none;
 }
 
-html.is-android [data-download-hero] {
+html.is-android [data-download-hero],
+html.is-ios [data-download-hero] {
   display:none;
 }
 
 html.is-android .hero-actions .android-play-cta {
+  display:block;
+}
+
+html.is-ios .hero-actions .ios-store-cta {
   display:block;
 }
 
