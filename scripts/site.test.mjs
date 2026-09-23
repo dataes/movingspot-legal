@@ -110,7 +110,8 @@ test('Google Play and the App Store are available', () => {
   assert.match(script, /document\.querySelector\('\[data-download-bottom\]'\)\?\.remove\(\)/);
   assert.match(script, /document\.querySelector\('#store-options \[data-store="apple"\]'\)\?\.remove\(\)/);
   assert.match(script, /platform === 'google'\) simplifyAndroidDownloads\(\)/);
-  assert.match(script, /platform === 'apple'\) document\.querySelector\('\[data-download-nav\]'\)\?\.remove\(\)/);
+  assert.match(script, /platform === 'apple'[\s\S]*?document\.querySelector\('\[data-download-nav\]'\)\?\.remove\(\)/);
+  assert.match(script, /document\.querySelector\('#store-options \[data-store="google"\]'\)\?\.remove\(\)/);
   assert.match(script, /link\.target = '_blank'/);
   assert.match(script, /link\.rel = 'noopener noreferrer'/);
 });

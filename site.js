@@ -61,7 +61,10 @@ function simplifyAndroidDownloads() {
 }
 
 if (platform === 'google') simplifyAndroidDownloads();
-if (platform === 'apple') document.querySelector('[data-download-nav]')?.remove();
+if (platform === 'apple') {
+  document.querySelector('[data-download-nav]')?.remove();
+  document.querySelector('#store-options [data-store="google"]')?.remove();
+}
 
 document.querySelectorAll('[data-store]').forEach(link => {
   const store = link.dataset.store;
