@@ -126,6 +126,7 @@ test('the App Store badge is at least as wide as Google Play everywhere', () => 
   const styles = read('styles.css');
   assert.match(styles, /\.store-badge\[data-store="apple"\] \{\s*width:176px;\s*height:68px;/);
   assert.match(styles, /\.store-badge\[data-store="google"\] \{\s*width:173px;/);
+  assert.match(styles, /\.dialog-stores \.store-badge\[data-store="google"\] \.store-badge-image \{\s*width:174px;\s*height:174px;/);
 });
 
 test('published child safety standards expose the Play listing name, CSAE prohibition, and contact', () => {

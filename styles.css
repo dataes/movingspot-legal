@@ -1138,6 +1138,11 @@ dialog>p:not(.eyebrow) {
   margin-top:28px;
 }
 
+.dialog-stores .store-badge[data-store="google"] .store-badge-image {
+  width:174px;
+  height:174px;
+}
+
 .legal-content {
   max-width:780px;
   margin:72px auto 100px;
