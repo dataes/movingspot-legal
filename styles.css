@@ -955,7 +955,8 @@ h2 {
 }
 
 .store-badge[data-store="apple"] {
-  width:134px;
+  width:176px;
+  height:68px;
 }
 
 .store-badge[data-store="google"] {
@@ -1136,7 +1137,6 @@ dialog>p:not(.eyebrow) {
   gap:12px;
   margin-top:28px;
 }
-
 
 .legal-content {
   max-width:780px;

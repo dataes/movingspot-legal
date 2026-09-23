@@ -43,6 +43,8 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
     assert.equal(await evaluate('document.querySelector("dialog").open'),true);
     assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getAttribute("aria-disabled")'), null);
     assert.equal(await evaluate('document.querySelector("dialog [data-store=google]").getAttribute("aria-disabled")'), null);
+    assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getBoundingClientRect().width >= document.querySelector("dialog [data-store=google]").getBoundingClientRect().width'),true);
+    assert.equal(await evaluate('document.querySelector("#store-options [data-store=apple]").getBoundingClientRect().width >= document.querySelector("#store-options [data-store=google]").getBoundingClientRect().width'),true);
     await evaluate('document.querySelector("dialog").close()');
     assert.equal(await evaluate('document.querySelector("[data-mode=out]").getAttribute("aria-pressed")'),'true');
     assert.equal(await evaluate('document.querySelectorAll(".floating-tag").length'),0);

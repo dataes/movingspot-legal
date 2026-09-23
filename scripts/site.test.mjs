@@ -119,6 +119,11 @@ test('hero entrance animation is enabled on touch devices unless reduced motion 
   assert.match(styles, /@media\(prefers-reduced-motion:reduce\)[\s\S]*?animation:none!important/);
 });
 
+test('the App Store badge is at least as wide as Google Play everywhere', () => {
+  const styles = read('styles.css');
+  assert.match(styles, /\.store-badge\[data-store="apple"\] \{\s*width:176px;\s*height:68px;/);
+});
+
 test('published child safety standards expose the Play listing name, CSAE prohibition, and contact', () => {
   const html = read('child-safety.html');
   assert.match(html, /MovingSpot: Brussels/);
