@@ -102,7 +102,7 @@ test('Google Play is available while the App Store remains marked as coming soon
 
   const styles = read('styles.css');
   assert.match(html, /class="store-badge android-play-cta"/);
-  assert.match(styles, /html\.is-android \[data-download-nav\],[\s\S]*?html\.is-android \[data-download-hero\]/);
+  assert.match(styles, /html\.is-android \[data-download-hero\] \{\s*display:none;/);
   assert.match(styles, /html\.is-android \.hero-actions \.android-play-cta \{\s*display:block;/);
 });
 

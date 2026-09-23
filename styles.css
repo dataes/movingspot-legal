@@ -284,8 +284,6 @@ em {
   display:none;
 }
 
-html.is-android [data-download-nav],
-html.is-android [data-download-bottom],
 html.is-android [data-download-hero] {
   display:none;
 }

@@ -85,8 +85,6 @@ for (const [name,ua,platform,touch,label,url] of [
  if (name === 'android') {
    assert.equal(await evaluate('document.documentElement.classList.contains("is-android")'),true);
    assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero [data-download-hero]")).display'),'none');
-   assert.equal(await evaluate('getComputedStyle(document.querySelector("[data-download-nav]")).display'),'none');
-   assert.equal(await evaluate('getComputedStyle(document.querySelector("[data-download-bottom]")).display'),'none');
    assert.equal(await evaluate('getComputedStyle(document.querySelector(".hero .android-play-cta")).display'),'block');
    assert.equal(await evaluate('document.querySelector(".hero .android-play-cta").getBoundingClientRect().width <= innerWidth - 32'),true,`${name}: Google Play badge fits smallest screen`);
    assert.ok((await evaluate('document.querySelector(".hero .android-play-cta").href')).endsWith('https://play.google.com/store/apps/details?id=com.brusselfever.app'));
