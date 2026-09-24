@@ -43,7 +43,7 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
     assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'), null);
     await evaluate('document.querySelector(".hero [data-download]").click()');
     assert.equal(await evaluate('document.querySelector("dialog").open'),true);
-    assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getAttribute("aria-disabled")'), null);
+    assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getAttribute("aria-disabled")'), 'true');
     assert.equal(await evaluate('document.querySelector("dialog [data-store=google]").getAttribute("aria-disabled")'), null);
     assert.equal(await evaluate('document.querySelector("dialog [data-store=apple]").getBoundingClientRect().width >= document.querySelector("dialog [data-store=google]").getBoundingClientRect().width'),true);
     assert.equal(await evaluate('document.querySelector("#store-options [data-store=apple]").getBoundingClientRect().width >= document.querySelector("#store-options [data-store=google]").getBoundingClientRect().width'),true);
@@ -100,8 +100,10 @@ for (const [name,ua,platform,touch,label,url] of [
    console.log(`PASS ${name}: entrance animation active and exactly two official Google Play badges shown`);
  } else {
    assert.equal(await evaluate('document.querySelector("[data-download-nav]")'),null);
-   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
-   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("button")'),true);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("store-badge")'),true);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("button")'),false);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download] img").getAttribute("src")'),'./assets/app-store.png');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download] .store-badge-status").textContent'),'Coming soon');
    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
    assert.equal(await evaluate('document.querySelector("[data-download-bottom]")'),null);
    assert.equal(await evaluate('document.querySelector("#store-options [data-store=google]")'),null);

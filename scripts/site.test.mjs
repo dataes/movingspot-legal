@@ -107,6 +107,7 @@ test('Google Play is available while the App Store remains marked as coming soon
   assert.match(script, /image\.src = '\.\/assets\/google-play\.png'/);
   assert.match(script, /if \(platform === 'apple'\) useAppStoreBadge\(link\)/);
   assert.match(script, /image\.src = '\.\/assets\/app-store\.png'/);
+  assert.match(script, /platform === 'apple' && link\.hasAttribute\('data-download-hero'\)[\s\S]*?useAppStoreBadge\(link\)[\s\S]*?status\.textContent = 'Coming soon'/);
   assert.match(script, /document\.querySelector\('\[data-download-nav\]'\)\?\.remove\(\)/);
   assert.match(script, /document\.querySelector\('\[data-download-bottom\]'\)\?\.remove\(\)/);
   assert.match(script, /document\.querySelector\('#store-options \[data-store="apple"\]'\)\?\.remove\(\)/);

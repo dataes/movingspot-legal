@@ -92,6 +92,13 @@ document.querySelectorAll('[data-download]').forEach(link => {
   }
 
   if (!storeAvailability[platform]) {
+    if (platform === 'apple' && link.hasAttribute('data-download-hero')) {
+      useAppStoreBadge(link);
+      const status = document.createElement('span');
+      status.className = 'store-badge-status';
+      status.textContent = 'Coming soon';
+      link.append(status);
+    }
     disableControl(link);
     const text = link.querySelector('[data-download-label]');
     if (text) text.textContent = 'Coming soon';
