@@ -131,6 +131,11 @@ test('the App Store badge is at least as wide as Google Play everywhere', () => 
   assert.match(styles, /\.dialog-stores \.store-badge\[data-store="google"\] \.store-badge-image \{\s*width:174px;\s*height:174px;/);
 });
 
+test('a closed store dialog cannot add space after the footer', () => {
+  const styles = read('styles.css');
+  assert.match(styles, /dialog:not\(\[open\]\) \{\s*display:none;/);
+});
+
 test('published child safety standards expose the Play listing name, CSAE prohibition, and contact', () => {
   const html = read('child-safety.html');
   assert.match(html, /MovingSpot: Brussels/);

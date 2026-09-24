@@ -36,6 +36,8 @@ for (const [name,width,height] of [['desktop',1440,1000],['tablet',768,1024],['m
   await pause(850);
   assert.equal(await evaluate('document.documentElement.scrollWidth <= innerWidth'), true, `${name}: horizontal overflow`);
   assert.equal(await evaluate('[...document.images].every(i => i.complete && i.naturalWidth > 0)'), true, `${name}: image load`);
+  assert.equal(await evaluate('getComputedStyle(document.querySelector("dialog:not([open])")).display'), 'none', `${name}: closed dialog hidden`);
+  assert.equal(await evaluate('Math.abs(document.documentElement.scrollHeight - Math.ceil(document.querySelector("footer").getBoundingClientRect().bottom + scrollY)) <= 2'), true, `${name}: no space after footer`);
   await screenshot(name);
   if (name === 'desktop') {
     assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'), null);
