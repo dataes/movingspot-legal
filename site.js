@@ -1,6 +1,8 @@
 const APPLE_STORE_URL = 'https://apps.apple.com/us/app/movingspot-brussels/id6769430023';
 const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.brusselfever.app';
-const storeAvailability = { apple: true, google: true };
+// Temporary EU launch gate: restore the iOS store behavior from commit 8ee5115
+// once the App Store listing is publicly available in the European Union.
+const storeAvailability = { apple: false, google: true };
 
 function detectPlatform(userAgent, platform, maxTouchPoints) {
   if (/iPad|iPhone|iPod/i.test(userAgent) || (platform === 'MacIntel' && maxTouchPoints > 1)) return 'apple';

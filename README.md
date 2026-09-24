@@ -15,9 +15,10 @@ Open http://127.0.0.1:4173.
 Both public store listings are configured:
 
 - Google Play: `https://play.google.com/store/apps/details?id=com.brusselfever.app`
-- App Store: `https://apps.apple.com/us/app/movingspot-brussels/id6769430023`
+- App Store URL is configured, but iOS remains marked as coming soon until its public release is confirmed.
+- Once the App Store listing is publicly available in the European Union, restore the iOS store behaviour from commit `8ee5115`.
 
-- iPhone/iPad (including desktop-mode iPadOS): App Store CTA.
+- iPhone/iPad (including desktop-mode iPadOS): disabled “Coming soon” CTA.
 - Android: Google Play CTA.
 - Desktop/unknown platform: accessible choice dialog, without assuming a store.
 - Both stores are available in the download section and manual picker.

@@ -79,7 +79,7 @@ test('homepage declares MovingSpot as the Brussels application and its official 
   ]);
 });
 
-test('Google Play and the App Store are available', () => {
+test('Google Play is available while the App Store remains marked as coming soon', () => {
   const html = read('index.html');
   assert.equal(html.match(/Available in Brussels/g)?.length, 3);
   assert.doesNotMatch(html, /Now (?:on|available on) Google Play/);
@@ -87,11 +87,11 @@ test('Google Play and the App Store are available', () => {
   const appleLinks = [...html.matchAll(/<a[^>]*data-store="apple"[^>]*>/g)];
   assert.equal(appleLinks.length, 2);
   for (const [link] of appleLinks) {
-    assert.match(link, /href="https:\/\/apps\.apple\.com\/us\/app\/movingspot-brussels\/id6769430023"/);
-    assert.match(link, /target="_blank"/);
-    assert.match(link, /rel="noopener noreferrer"/);
-    assert.doesNotMatch(link, /aria-disabled|tabindex/);
+    assert.match(link, /href="#download"/);
+    assert.match(link, /aria-disabled="true"/);
+    assert.match(link, /tabindex="-1"/);
   }
+  assert.equal(html.match(/<span class="store-badge-status">Coming soon<\/span>/g)?.length, 2);
   const googleLinks = [...html.matchAll(/<a[^>]*data-store="google"[^>]*>/g)];
   assert.equal(googleLinks.length, 2);
   for (const [link] of googleLinks) {
@@ -101,7 +101,7 @@ test('Google Play and the App Store are available', () => {
   }
 
   const script = read('site.js');
-  assert.match(script, /const storeAvailability = \{ apple: true, google: true \}/);
+  assert.match(script, /const storeAvailability = \{ apple: false, google: true \}/);
   assert.match(script, /apple: 'Download on the App Store'/);
   assert.match(script, /if \(platform === 'google'\) useGooglePlayBadge\(link\)/);
   assert.match(script, /image\.src = '\.\/assets\/google-play\.png'/);

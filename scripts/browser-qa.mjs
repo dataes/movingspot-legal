@@ -100,15 +100,15 @@ for (const [name,ua,platform,touch,label,url] of [
    console.log(`PASS ${name}: entrance animation active and exactly two official Google Play badges shown`);
  } else {
    assert.equal(await evaluate('document.querySelector("[data-download-nav]")'),null);
-   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("store-badge")'),true);
-   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("button")'),false);
-   assert.equal(await evaluate('document.querySelector(".hero [data-download] img").getAttribute("src")'),'./assets/app-store.png');
-   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
-   assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://apps.apple.com/us/app/movingspot-brussels/id6769430023'));
+   assert.equal(await evaluate('document.querySelector(".hero [data-download-label]").textContent'),'Coming soon');
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").classList.contains("button")'),true);
+   assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),'true');
    assert.equal(await evaluate('document.querySelector("[data-download-bottom]")'),null);
    assert.equal(await evaluate('document.querySelector("#store-options [data-store=google]")'),null);
    assert.notEqual(await evaluate('document.querySelector("#store-options [data-store=apple]")'),null);
-   console.log(`PASS ${name}: entrance animation active and App Store CTA enabled`);
+   assert.equal(await evaluate('document.querySelector("#store-options [data-store=apple]").getAttribute("aria-disabled")'),'true');
+   assert.equal(await evaluate('document.querySelector(".hero .availability-note").textContent'),'Available in Brussels');
+   console.log(`PASS ${name}: entrance animation active and App Store marked as coming soon`);
  }
 }
 await send('Emulation.setTouchEmulationEnabled',{enabled:false});
