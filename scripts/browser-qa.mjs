@@ -103,6 +103,7 @@ for (const [name,ua,platform,touch,label,url] of [
    assert.equal(await evaluate('document.querySelector(".hero [data-download] img").getAttribute("src")'),'./assets/app-store.png');
    assert.equal(await evaluate('document.querySelector(".hero [data-download]").getAttribute("aria-disabled")'),null);
    assert.ok((await evaluate('document.querySelector(".hero [data-download]").href')).endsWith('https://apps.apple.com/us/app/movingspot-brussels/id6769430023'));
+   assert.equal(await evaluate('document.querySelector("[data-download-bottom]")'),null);
    assert.equal(await evaluate('document.querySelector("#store-options [data-store=google]")'),null);
    assert.notEqual(await evaluate('document.querySelector("#store-options [data-store=apple]")'),null);
    console.log(`PASS ${name}: entrance animation active and App Store CTA enabled`);

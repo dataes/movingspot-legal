@@ -63,6 +63,7 @@ function simplifyAndroidDownloads() {
 if (platform === 'google') simplifyAndroidDownloads();
 if (platform === 'apple') {
   document.querySelector('[data-download-nav]')?.remove();
+  document.querySelector('[data-download-bottom]')?.remove();
   document.querySelector('#store-options [data-store="google"]')?.remove();
 }
 
