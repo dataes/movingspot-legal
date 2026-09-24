@@ -81,6 +81,7 @@ test('homepage declares MovingSpot as the Brussels application and its official 
 
 test('Google Play and the App Store are available', () => {
   const html = read('index.html');
+  assert.equal(html.match(/Available in Brussels/g)?.length, 3);
   assert.doesNotMatch(html, /Now (?:on|available on) Google Play/);
   assert.doesNotMatch(html, /MovingSpot is now on Google Play/);
   const appleLinks = [...html.matchAll(/<a[^>]*data-store="apple"[^>]*>/g)];

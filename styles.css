@@ -280,6 +280,16 @@ em {
   gap:20px;
 }
 
+.availability-note {
+  color:#b7b7be;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.download-content>.availability-note {
+  margin-top:14px;
+}
+
 .hero-scene {
   height:650px;
   position:relative;
