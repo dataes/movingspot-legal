@@ -75,11 +75,11 @@ test('homepage declares MovingSpot as the Brussels application and its official 
   assert.deepEqual(app.operatingSystem, ['Android', 'iOS']);
   assert.deepEqual(app.downloadUrl, [
     'https://play.google.com/store/apps/details?id=com.brusselfever.app',
-    'https://apps.apple.com/us/app/movingspot-brussels/id6769430023',
+    'https://apps.apple.com/app/movingspot-brussels/id6769430023',
   ]);
 });
 
-test('Google Play is available while the App Store remains marked as coming soon', () => {
+test('Google Play and the App Store are available', () => {
   const html = read('index.html');
   assert.equal(html.match(/Available in Brussels/g)?.length, 3);
   assert.doesNotMatch(html, /Now (?:on|available on) Google Play/);
@@ -87,11 +87,12 @@ test('Google Play is available while the App Store remains marked as coming soon
   const appleLinks = [...html.matchAll(/<a[^>]*data-store="apple"[^>]*>/g)];
   assert.equal(appleLinks.length, 2);
   for (const [link] of appleLinks) {
-    assert.match(link, /href="#download"/);
-    assert.match(link, /aria-disabled="true"/);
-    assert.match(link, /tabindex="-1"/);
+    assert.match(link, /href="https:\/\/apps\.apple\.com\/app\/movingspot-brussels\/id6769430023"/);
+    assert.match(link, /target="_blank"/);
+    assert.match(link, /rel="noopener noreferrer"/);
+    assert.doesNotMatch(link, /aria-disabled/);
   }
-  assert.equal(html.match(/<span class="store-badge-status">Coming soon<\/span>/g)?.length, 2);
+  assert.doesNotMatch(html, /Coming soon/);
   const googleLinks = [...html.matchAll(/<a[^>]*data-store="google"[^>]*>/g)];
   assert.equal(googleLinks.length, 2);
   for (const [link] of googleLinks) {
@@ -101,7 +102,7 @@ test('Google Play is available while the App Store remains marked as coming soon
   }
 
   const script = read('site.js');
-  assert.match(script, /const storeAvailability = \{ apple: false, google: true \}/);
+  assert.match(script, /const storeAvailability = \{ apple: true, google: true \}/);
   assert.match(script, /apple: 'Download on the App Store'/);
   assert.match(script, /if \(platform === 'google'\) useGooglePlayBadge\(link\)/);
   assert.match(script, /image\.src = '\.\/assets\/google-play\.png'/);
@@ -130,6 +131,8 @@ test('the App Store badge is at least as wide as Google Play everywhere', () => 
   const styles = read('styles.css');
   assert.match(styles, /\.store-badge\[data-store="apple"\] \{\s*width:176px;\s*height:68px;/);
   assert.match(styles, /\.store-badge\[data-store="google"\] \{\s*width:173px;/);
+  assert.match(styles, /\.store-badge\[data-store="apple"\] \.store-badge-image \{[\s\S]*?transform:scaleX\(1\.1\)/);
+  assert.match(styles, /\.dialog-stores \.store-badge\[data-store="apple"\] \.store-badge-image \{\s*transform:none;/);
   assert.match(styles, /\.dialog-stores \.store-badge\[data-store="google"\] \.store-badge-image \{\s*width:174px;\s*height:174px;/);
 });
 

@@ -982,6 +982,7 @@ h2 {
   width:100%;
   height:100%;
   object-fit:contain;
+  transform:scaleX(1.1);
 }
 
 .store-badge[data-store="google"] .store-badge-image {
@@ -1150,6 +1151,10 @@ dialog>p:not(.eyebrow) {
   justify-items:center;
   gap:12px;
   margin-top:28px;
+}
+
+.dialog-stores .store-badge[data-store="apple"] .store-badge-image {
+  transform:none;
 }
 
 .dialog-stores .store-badge[data-store="google"] .store-badge-image {
