@@ -338,37 +338,6 @@ em {
   box-shadow:0 35px 80px #000b,0 0 0 3px #2b2b31;
 }
 
-.orbit {
-  position:absolute;
-  border:1px solid #ff006e20;
-  border-radius:50%;
-  width:510px;
-  height:510px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  z-index:-1;
-}
-
-.orbit-two {
-  width:650px;
-  height:650px;
-  border-style:dashed;
-  border-color:#ffffff0a;
-}
-
-.orbit-one:before {
-  content:'';
-  position:absolute;
-  top:25%;
-  left:6%;
-  width:7px;
-  height:7px;
-  background:var(--cyan);
-  border-radius:50%;
-  box-shadow:0 0 20px 7px #29f1ff33;
-}
-
 .floating-tag {
   display:flex;
   align-items:center;
@@ -1318,14 +1287,6 @@ dialog>p:not(.eyebrow) {
     height:33px;
     font-size:16px;
   }
-  .orbit {
-    width:400px;
-    height:400px;
-  }
-  .orbit-two {
-    width:500px;
-    height:500px;
-  }
   .hero-actions {
     align-items:flex-start;
     flex-direction:column;
@@ -1609,14 +1570,6 @@ dialog>p:not(.eyebrow) {
     font-size:20px;
     margin-left:0;
   }
-  .orbit {
-    width:300px;
-    height:300px;
-  }
-  .orbit-two {
-    width:355px;
-    height:355px;
-  }
   .map-coordinate {
     top:5px;
     right:0;
@@ -1890,10 +1843,6 @@ dialog>p:not(.eyebrow) {
   }
   .tag-bottom {
     bottom:51px;
-  }
-  .orbit-two {
-    width:285px;
-    height:285px;
   }
   .choice-heading {
     font-size:19px;

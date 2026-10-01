@@ -81,7 +81,7 @@ test('homepage declares MovingSpot as the Brussels application and its official 
 
 test('Google Play and the App Store are available', () => {
   const html = read('index.html');
-  assert.match(html, /href="\.\/styles\.css\?v=app-store-live-1"/);
+  assert.match(html, /href="\.\/styles\.css\?v=remove-orbit-1"/);
   assert.match(html, /src="\.\/site\.js\?v=app-store-live-1"/);
   assert.equal(html.match(/Available in Brussels/g)?.length, 3);
   assert.doesNotMatch(html, /Now (?:on|available on) Google Play/);
